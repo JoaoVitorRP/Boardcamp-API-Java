@@ -1,4 +1,4 @@
-package com.boardcamp.api.Models;
+package com.boardcamp.api.models;
 
 import java.time.LocalDate;
 
