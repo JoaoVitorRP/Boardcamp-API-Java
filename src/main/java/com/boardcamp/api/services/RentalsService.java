@@ -32,7 +32,7 @@ public class RentalsService {
         CustomerModel customer = customersRepository.findById(dto.getCustomerId())
                 .orElseThrow(() -> new NotFoundException("Customer not found!"));
 
-        Long rentalCount = rentalsRepository.countByGameId(dto.getGameId());
+        Long rentalCount = rentalsRepository.countRentedGamesById(dto.getGameId());
         if (rentalCount >= game.getStockTotal()) {
             throw new UnprocessableEntityException("Out of stock for game with given id!");
         }
