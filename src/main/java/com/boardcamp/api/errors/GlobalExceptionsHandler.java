@@ -16,4 +16,9 @@ public class GlobalExceptionsHandler {
     public ResponseEntity<Object> handleNotFound(NotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
+
+    @ExceptionHandler({ UnprocessableEntityException.class })
+    public ResponseEntity<Object> handleUnprocessableEntity(UnprocessableEntityException exception) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(exception.getMessage());
+    }
 }
