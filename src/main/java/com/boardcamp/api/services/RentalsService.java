@@ -1,5 +1,8 @@
 package com.boardcamp.api.services;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 import org.springframework.stereotype.Service;
 
 import com.boardcamp.api.dtos.RentalDTO;
@@ -11,6 +14,8 @@ import com.boardcamp.api.models.RentalModel;
 import com.boardcamp.api.repositories.CustomersRepository;
 import com.boardcamp.api.repositories.GamesRepository;
 import com.boardcamp.api.repositories.RentalsRepository;
+
+import lombok.NonNull;
 
 @Service
 public class RentalsService {
@@ -40,6 +45,26 @@ public class RentalsService {
         Long price = game.getPricePerDay() * dto.getDaysRented();
 
         RentalModel rental = new RentalModel(dto, price, customer, game);
+        return rentalsRepository.save(rental);
+    }
+
+    public RentalModel update(@NonNull Long id) {
+        RentalModel rental = rentalsRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Rental not found!"));
+        
+        if (rental.getReturnDate() != null) {
+            throw new UnprocessableEntityException("Rental has already been returned!");
+        }
+
+        rental.setReturnDate(LocalDate.now());
+
+        Long daysPassed = ChronoUnit.DAYS.between(rental.getRentDate(), rental.getReturnDate());
+        Long daysRented = rental.getDaysRented();
+        if (daysPassed > daysRented) {
+            Long delayFee = (daysPassed - daysRented) * rental.getGame().getPricePerDay();
+            rental.setDelayFee(delayFee);
+        }
+
         return rentalsRepository.save(rental);
     }
 }

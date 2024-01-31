@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -28,6 +29,13 @@ public class RentalsController {
         RentalModel rental = rentalsService.save(body);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(rental);
+    }
+
+    @PostMapping("/{id}/return")
+    public ResponseEntity<RentalModel> putRental(@PathVariable Long id) {
+        RentalModel rental = rentalsService.update(id);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(rental);
     }
 
 }
