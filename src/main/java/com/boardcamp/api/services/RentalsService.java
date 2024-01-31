@@ -37,7 +37,7 @@ public class RentalsService {
             throw new UnprocessableEntityException("Out of stock for game with given id!");
         }
 
-        double price = game.getPricePerDay() * dto.getDaysRented();
+        Long price = game.getPricePerDay() * dto.getDaysRented();
 
         RentalModel rental = new RentalModel(dto, price, customer, game);
         return rentalsRepository.save(rental);

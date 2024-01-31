@@ -19,5 +19,5 @@ public class GameDTO {
 
     @NotNull(message = "Field \"price per day\" cannot be null")
     @Positive(message = "Field \"price per day\" must be greater than 0")
-    public double pricePerDay;
+    public Long pricePerDay;
 }

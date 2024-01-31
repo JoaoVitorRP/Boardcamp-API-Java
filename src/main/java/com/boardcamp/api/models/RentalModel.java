@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "rentals")
 public class RentalModel {
-    public RentalModel(RentalDTO dto, double price, CustomerModel customer, GameModel game) {
+    public RentalModel(RentalDTO dto, Long price, CustomerModel customer, GameModel game) {
         this.daysRented = dto.getDaysRented();
         this.originalPrice = price;
         this.customer = customer;
@@ -43,10 +43,10 @@ public class RentalModel {
     private LocalDate returnDate;
 
     @Column(nullable = false)
-    private double originalPrice;
+    private Long originalPrice;
 
     @Column
-    private double delayFee = 0;
+    private Long delayFee = 0L;
 
     @ManyToOne
     @JoinColumn(name = "customerId")
