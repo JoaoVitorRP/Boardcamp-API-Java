@@ -33,7 +33,7 @@ public class RentalModel {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(insertable = false)
+    @Column(nullable = false)
     private LocalDate rentDate = LocalDate.now();
 
     @Column(nullable = false)
