@@ -2,6 +2,7 @@ package com.boardcamp.api.services;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,10 @@ public class RentalsService {
 
         RentalModel rental = new RentalModel(dto, price, customer, game);
         return rentalsRepository.save(rental);
+    }
+
+    public List<RentalModel> findAll() {
+        return rentalsRepository.findAll();
     }
 
     public RentalModel update(@NonNull Long id) {
