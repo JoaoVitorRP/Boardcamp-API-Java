@@ -1,9 +1,7 @@
 package com.boardcamp.api.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.hibernate.mapping.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,11 +18,10 @@ import com.boardcamp.api.dtos.GameDTO;
 import com.boardcamp.api.factories.GamesFactory;
 import com.boardcamp.api.models.GameModel;
 import com.boardcamp.api.repositories.GamesRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class GamesIntegrationTests {
+class GamesIntegrationTests {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
@@ -53,7 +50,7 @@ public class GamesIntegrationTests {
     void givenRepeatedGameName_whenCreatingGame_thenThrowsError() {
         GameDTO gameDto = GamesFactory.CreateValidGameDTO();
         GameModel gameModel = new GameModel(gameDto);
-        GameModel createdGame = gamesRepository.save(gameModel);
+        gamesRepository.save(gameModel);
 
         HttpEntity<GameDTO> body = new HttpEntity<>(gameDto);
 
