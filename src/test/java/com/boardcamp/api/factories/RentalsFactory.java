@@ -30,4 +30,10 @@ public class RentalsFactory {
 
         return rentalModel;
     }
+
+    public static RentalDTO CreateInvalidRentalDTO() {
+        RentalDTO rental = new RentalDTO(1L, 1L, 0L);
+
+        return rental;
+    }
 }
